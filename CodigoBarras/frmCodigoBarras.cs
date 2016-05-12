@@ -12,6 +12,8 @@ using System.IO;
 using System.Drawing.Text;
 using System.Web;
 using Root.Reports;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace CodigoBarras
 {
@@ -26,8 +28,9 @@ namespace CodigoBarras
         {
             this.ofdImportarTxt.Multiselect = false;
             this.ofdImportarTxt.Title = "Selecionar Arquivo";
+            ofdImportarTxt.FileName = "";
             ofdImportarTxt.InitialDirectory = @"C:\";
-            ofdImportarTxt.Filter = "Teste | *.txt";
+            ofdImportarTxt.Filter = "*.txt | *.txt";
             ofdImportarTxt.CheckFileExists = true;
             ofdImportarTxt.CheckPathExists = true;
             ofdImportarTxt.FilterIndex = 2;
@@ -36,14 +39,11 @@ namespace CodigoBarras
             ofdImportarTxt.ShowReadOnly = true;
 
             DialogResult dr = this.ofdImportarTxt.ShowDialog();
-
+           
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
                 Microsoft.Office.Interop.Word.Application wordApplication = default(Microsoft.Office.Interop.Word.Application);
                 wordApplication = new Microsoft.Office.Interop.Word.Application();
-
-                //cria um novo domento Workd
-                object fileName = @"C:\Users\Suellen\Documents\Exemplos_CodigoBarras\Fonts\normal.dot";
 
                 // template normal
                 object newTemplate = false;
@@ -51,7 +51,7 @@ namespace CodigoBarras
                 object isVisible = true;
 
                 // Cria um novo Documento  chamando a função Add na coleção de documentos
-                Microsoft.Office.Interop.Word.Document aDoc = wordApplication.Documents.Add(Type.Missing, newTemplate, docType, isVisible);// (fileName, newTemplate, docType, isVisible);
+                Microsoft.Office.Interop.Word.Document aDoc = wordApplication.Documents.Add(Type.Missing, newTemplate, docType, isVisible);
 
                 // torna o documento visivel
                 wordApplication.Visible = true;
@@ -63,35 +63,87 @@ namespace CodigoBarras
                 PrivateFontCollection pfc = new PrivateFontCollection();
                 System.Drawing.Font _Fonte;
 
-                string CAMINHO_FONTES = @"C:\Users\Suellen\Documents\Exemplos_CodigoBarras\Fonts";
+                string CAMINHO_FONTES = Application.StartupPath + "\\Fonts";
 
                 pfc.AddFontFile(CAMINHO_FONTES + @"\" + "BARCOD39.TTF");
 
                 FontFamily fontFamily = pfc.Families[0];
                 _Fonte = new System.Drawing.Font(fontFamily, 30);
 
-                String codigoBarras;
-
-                
+                string primeiraLinha;
+                string linhaT;
+                string linhaZ;
+                string linhaX;
+                int count = 1;
 
                 while (linha != null)
                 {
-                    codigoBarras = String.Format("*{0}*", linha);
+                    if (count == 1)
+                    {
+                        primeiraLinha = linha;
 
-                    wordApplication.Selection.Font.Size = 80;
-                    wordApplication.Selection.Font.Bold = 0;
-                    wordApplication.Selection.Font.Name = "C39Hrp24dhtt";
-                    wordApplication.Selection.Font.Underline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
-                    wordApplication.Selection.TypeParagraph();
-                    wordApplication.Selection.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphLeft;
-                    wordApplication.Selection.TypeText(codigoBarras);
+                        wordApplication.Selection.Font.Size = 20;
+                        wordApplication.Selection.Font.Bold = 0;
+                        wordApplication.Selection.Font.Name = "Times";
+                        wordApplication.Selection.Font.Underline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
+                        wordApplication.Selection.TypeParagraph();
+                        wordApplication.Selection.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphLeft;
+                        wordApplication.Selection.TypeText(primeiraLinha);
+                    }
 
+                    if (count == 2)
+                    {
+                        linhaT = String.Format("*{0}*", linha.Replace("T=",""));
+
+                        wordApplication.Selection.Font.Size = 80;
+                        wordApplication.Selection.Font.Bold = 0;
+                        wordApplication.Selection.Font.Underline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
+                        wordApplication.Selection.TypeParagraph();
+                        wordApplication.Selection.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphLeft;
+
+                        wordApplication.Selection.Font.Name = "Times";
+                        wordApplication.Selection.TypeText("T= ");
+                        wordApplication.Selection.Font.Name = "C39Hrp24dhtt";
+                        wordApplication.Selection.TypeText(linhaT);
+                    }
+
+                    if (count == 3)
+                    {
+                        linhaZ = String.Format("*{0}*", linha.Replace("Z=",""));
+
+                        wordApplication.Selection.Font.Size = 80;
+                        wordApplication.Selection.Font.Bold = 0;
+                        wordApplication.Selection.Font.Underline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
+                        wordApplication.Selection.TypeParagraph();
+                        wordApplication.Selection.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphLeft;
+
+                        wordApplication.Selection.Font.Name = "Times";
+                        wordApplication.Selection.TypeText("Z= ");
+                        wordApplication.Selection.Font.Name = "C39Hrp24dhtt";
+                        wordApplication.Selection.TypeText(linhaZ);
+                    }
+
+                    if (count == 4)
+                    {
+                        linhaX = String.Format("*{0}*", linha.Replace("X=",""));
+
+                        wordApplication.Selection.Font.Size = 80;
+                        wordApplication.Selection.Font.Bold = 0;
+                        wordApplication.Selection.Font.Underline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
+                        wordApplication.Selection.TypeParagraph();
+                        wordApplication.Selection.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphLeft;
+
+                        wordApplication.Selection.Font.Name = "Times";
+                        wordApplication.Selection.TypeText("X= ");
+                        wordApplication.Selection.Font.Name = "C39Hrp24dhtt";
+                        wordApplication.Selection.TypeText(linhaX);
+                    }
                     
                     linha = sr.ReadLine();
+                    count++;
                 }
 
                 sr.Close();
-
 
                 //string vArq = "";
                 //FolderBrowserDialog vSalvar = new FolderBrowserDialog();
@@ -117,8 +169,6 @@ namespace CodigoBarras
                 // Salvar Arquivo no disco
                 //vPdf.Save(vArq);
                 //MessageBox.Show("Arquivo Gerado com sucesso !", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
             }
         }
 
@@ -129,6 +179,19 @@ namespace CodigoBarras
 
             if (rdtPdf.Checked)
                 textBox1.Text = rdtPdf.Checked.ToString();
+
+            Document doc = new Document();
+            PdfWriter.GetInstance(doc, new FileStream(Application.StartupPath + "\\Download\\example_with_font.pdf", FileMode.Create));
+            doc.Open();
+
+            iTextSharp.text.Font arial = FontFactory.GetFont("C39Hrp24dhtt");
+            string teste;
+            string teste2 = "123456";
+            teste = String.Format("*{0}*", teste2);
+            
+
+            doc.Add(new Paragraph(teste, arial));
+            doc.Close();
         }
     }
 }

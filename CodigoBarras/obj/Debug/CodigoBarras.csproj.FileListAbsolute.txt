@@ -7,4 +7,5 @@ C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.Prop
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.csproj.GenerateResource.Cache
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.exe
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.pdb
-C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\Reports.dll
+C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\itextsharp.dll
+C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\itextsharp.xml
