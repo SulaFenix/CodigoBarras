@@ -35,6 +35,7 @@
             this.ofdImportarTxt = new System.Windows.Forms.OpenFileDialog();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.link = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -102,11 +103,22 @@
             this.textBox1.Size = new System.Drawing.Size(100, 26);
             this.textBox1.TabIndex = 7;
             // 
+            // link
+            // 
+            this.link.AutoSize = true;
+            this.link.Location = new System.Drawing.Point(738, 202);
+            this.link.Name = "link";
+            this.link.Size = new System.Drawing.Size(80, 20);
+            this.link.TabIndex = 8;
+            this.link.TabStop = true;
+            this.link.Text = "linkLabel1";
+            // 
             // frmCodigoBarras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(926, 250);
+            this.Controls.Add(this.link);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnGerarCodigoBarras);
@@ -128,6 +140,7 @@
         private System.Windows.Forms.OpenFileDialog ofdImportarTxt;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.LinkLabel link;
     }
 }
 
