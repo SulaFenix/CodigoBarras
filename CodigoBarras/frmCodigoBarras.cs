@@ -12,8 +12,10 @@ using System.IO;
 using System.Drawing.Text;
 using System.Web;
 using Root.Reports;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+//using iTextSharp.text;
+//using iTextSharp.text.pdf;
+using Microsoft.Office.Interop.Word;
+using Microsoft.Win32;
 
 namespace CodigoBarras
 {
@@ -50,7 +52,6 @@ namespace CodigoBarras
                 object docType = 0;
                 object isVisible = true;
 
-                // Cria um novo Documento  chamando a função Add na coleção de documentos
                 Microsoft.Office.Interop.Word.Document aDoc = wordApplication.Documents.Add(Type.Missing, newTemplate, docType, isVisible);
 
                 // torna o documento visivel
@@ -65,7 +66,7 @@ namespace CodigoBarras
                 PrivateFontCollection pfc = new PrivateFontCollection();
                 System.Drawing.Font _Fonte;
 
-                string CAMINHO_FONTES = Application.StartupPath + "\\Fonts";
+                string CAMINHO_FONTES = System.Windows.Forms.Application.StartupPath + "\\Fonts";
 
                 pfc.AddFontFile(CAMINHO_FONTES + @"\" + "BARCOD39.TTF");
 
@@ -146,165 +147,64 @@ namespace CodigoBarras
                 }
 
                 sr.Close();
+                //aDoc.Close();
 
-                //string vArq = "";
-                //FolderBrowserDialog vSalvar = new FolderBrowserDialog();
-
-                //if (vSalvar.ShowDialog() == DialogResult.Cancel)
-                //    return; // Cancela todo processo
-                // Insere na variavel o caminho selecionado pelo usuário e concatena com o nome do arquivo
-                //vArq = vSalvar.SelectedPath + "\\" + "teste" + ".pdf";
-
-
-                // Cria um objeto PDF
-                //Report vPdf = new Report(new PdfFormatter());
-                // Define a fonte que sera usada no relatório PDF
-                //FontDef vDef = new FontDef(vPdf, FontDef.StandardFont.TimesRoman);
-                //FontProp vDrop = new FontProp(vDef, 10);
-                // Cria uma Nova Pagina
-                //Page vPage = new Page(vPdf);
-
-                // Escreve no Arquivo
-                //vPage.AddCB_MM(5, new RepString(vDrop, codigoBarras)); // Centraliza
-                //vPage.AddCB_MM(0, new RepString(vDrop, ""));
-
-                // Salvar Arquivo no disco
-                //vPdf.Save(vArq);
-                //MessageBox.Show("Arquivo Gerado com sucesso !", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //aDoc.ExportAsFixedFormat(ofdImportarTxt.FileName, WdExportFormat.wdExportFormatPDF);
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (rdtDoc.Checked)
-                textBox1.Text = rdtDoc.Checked.ToString();
+        #region Testes
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    if (rdtDoc.Checked)
+        //        textBox1.Text = rdtDoc.Checked.ToString();
 
-            if (rdtPdf.Checked)
-                textBox1.Text = rdtPdf.Checked.ToString();
+        //    if (rdtPdf.Checked)
+        //        textBox1.Text = rdtPdf.Checked.ToString();
 
-            #region Exemplo 1
-            //Document doc = new Document();
-            //PdfWriter.GetInstance(doc, new FileStream(Application.StartupPath + "\\Download\\example_with_font.pdf", FileMode.Create));
-            //doc.Open();
+        //    #region Exemplo 1
+        //    //Document doc = new Document();
+        //    //PdfWriter.GetInstance(doc, new FileStream(Application.StartupPath + "\\Download\\example_with_font.pdf", FileMode.Create));
+        //    //doc.Open();
 
-            //iTextSharp.text.Font arial = FontFactory.GetFont("Times");
-            //string teste;
-            //string teste2 = "123456";
-            //teste = String.Format("*{0}*", teste2);
-
-
-            //doc.Add(new Paragraph(teste, arial));
-            //doc.Close();
-
-            //link.Text = Application.StartupPath + "\\Download\\example_with_font.pdf";
-            ////HLink.NavigateUrl = Request.ApplicationPath + "/example_with_db.pdf"; 
-            #endregion
-
-            #region Exemplo 2
-            //// Create a new Microsoft Word application object
-            //Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
-
-            //// C# doesn't have optional arguments so we'll need a dummy value
-            //object oMissing = System.Reflection.Missing.Value;
-
-            //// Get list of Word files in specified directory
-            //DirectoryInfo dirInfo = new DirectoryInfo(@"C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\Download");
-            //FileInfo[] wordFiles = dirInfo.GetFiles("*.doc");
-
-            //word.Visible = false;
-            //word.ScreenUpdating = false;
-
-            //foreach (FileInfo wordFile in wordFiles)
-            //{
-            //    // Cast as Object for word Open method
-            //    Object filename = (Object)wordFile.FullName;
-
-            //    // Use the dummy value as a placeholder for optional arguments
-            //    //Microsoft.Office.Interop.Word.Document doc = word.Documents.Open(ref filename, ref oMissing,
-            //    //    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-            //    //    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-            //    //    ref oMissing, ref oMissing, ref oMissing, ref oMissing);
-            //    //doc.Activate();
+        //    //iTextSharp.text.Font arial = FontFactory.GetFont("Times");
+        //    //string teste;
+        //    //string teste2 = "123456";
+        //    //teste = String.Format("*{0}*", teste2);
 
 
+        //    //doc.Add(new Paragraph(teste, arial));
+        //    //doc.Close();
 
+        //    //link.Text = Application.StartupPath + "\\Download\\example_with_font.pdf";
+        //    ////HLink.NavigateUrl = Request.ApplicationPath + "/example_with_db.pdf"; 
+        //    #endregion
 
+        //    #region Exemplo 2
+        //    /*// Create a new Microsoft Word application object
+        //    Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
 
+        //    // C# doesn't have optional arguments so we'll need a dummy value
+        //    object oMissing = System.Reflection.Missing.Value;
 
+        //    // Get list of Word files in specified directory
+        //    DirectoryInfo dirInfo = new DirectoryInfo(@"C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\Download");
+        //    FileInfo[] wordFiles = dirInfo.GetFiles("*.doc");
 
-            //    this.ofdImportarTxt.Multiselect = false;
-            //    this.ofdImportarTxt.Title = "Selecionar Arquivo";
-            //    ofdImportarTxt.FileName = "";
-            //    ofdImportarTxt.InitialDirectory = @"C:\";
-            //    ofdImportarTxt.Filter = "*.txt | *.txt";
-            //    ofdImportarTxt.CheckFileExists = true;
-            //    ofdImportarTxt.CheckPathExists = true;
-            //    ofdImportarTxt.FilterIndex = 2;
-            //    ofdImportarTxt.RestoreDirectory = true;
-            //    ofdImportarTxt.ReadOnlyChecked = true;
-            //    ofdImportarTxt.ShowReadOnly = true;
+        //    word.Visible = false;
+        //    word.ScreenUpdating = false;
 
-            //    DialogResult dr = this.ofdImportarTxt.ShowDialog();
+        //    foreach (FileInfo wordFile in wordFiles)
+        //    {
+        //        // Cast as Object for word Open method
+        //        Object filename = (Object)wordFile.FullName;
 
-            //    if (dr == System.Windows.Forms.DialogResult.OK)
-            //    {
-            //        Microsoft.Office.Interop.Word.Application wordApplication = default(Microsoft.Office.Interop.Word.Application);
-            //        wordApplication = new Microsoft.Office.Interop.Word.Application();
-
-            //        // template normal
-            //        object newTemplate = false;
-            //        object docType = 0;
-            //        object isVisible = true;
-
-            //        // Cria um novo Documento  chamando a função Add na coleção de documentos
-            //        Microsoft.Office.Interop.Word.Document doc = wordApplication.Documents.Add(Type.Missing, newTemplate, docType, isVisible);
-
-            //        // torna o documento visivel
-            //        wordApplication.Visible = true;
-            //        doc.Activate();
-            //        //aDoc.Save();
-
-
-            //        StreamReader sr = new StreamReader(ofdImportarTxt.FileName);
-            //        string nomeArquivo = ofdImportarTxt.SafeFileName;
-            //        string linha = sr.ReadLine();
-
-            //        PrivateFontCollection pfc = new PrivateFontCollection();
-            //        System.Drawing.Font _Fonte;
-
-            //        string CAMINHO_FONTES = Application.StartupPath + "\\Fonts";
-
-            //        pfc.AddFontFile(CAMINHO_FONTES + @"\" + "BARCOD39.TTF");
-
-            //        FontFamily fontFamily = pfc.Families[0];
-            //        _Fonte = new System.Drawing.Font(fontFamily, 30);
-
-            //        string primeiraLinha;
-            //        string linhaT;
-            //        string linhaZ;
-            //        string linhaX;
-            //        int count = 1;
-
-            //        while (linha != null)
-            //        {
-            //            if (count == 1)
-            //            {
-            //                primeiraLinha = linha;
-
-            //                wordApplication.Selection.Font.Size = 20;
-            //                wordApplication.Selection.Font.Bold = 0;
-            //                wordApplication.Selection.Font.Name = "Times";
-            //                wordApplication.Selection.Font.Underline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
-            //                wordApplication.Selection.TypeParagraph();
-            //                wordApplication.Selection.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphLeft;
-            //                wordApplication.Selection.TypeText(primeiraLinha);
-            //            }
-
-            //            linha = sr.ReadLine();
-            //            count++;
-            //        }
-
-            //        sr.Close();
+        //        // Use the dummy value as a placeholder for optional arguments
+        //        //Microsoft.Office.Interop.Word.Document doc = word.Documents.Open(ref filename, ref oMissing,
+        //        //    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+        //        //    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+        //        //    ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+        //        //doc.Activate();
 
 
 
@@ -312,92 +212,265 @@ namespace CodigoBarras
 
 
 
+        //        this.ofdImportarTxt.Multiselect = false;
+        //        this.ofdImportarTxt.Title = "Selecionar Arquivo";
+        //        ofdImportarTxt.FileName = "";
+        //        ofdImportarTxt.InitialDirectory = @"C:\";
+        //        ofdImportarTxt.Filter = "*.txt | *.txt";
+        //        ofdImportarTxt.CheckFileExists = true;
+        //        ofdImportarTxt.CheckPathExists = true;
+        //        ofdImportarTxt.FilterIndex = 2;
+        //        ofdImportarTxt.RestoreDirectory = true;
+        //        ofdImportarTxt.ReadOnlyChecked = true;
+        //        ofdImportarTxt.ShowReadOnly = true;
+
+        //        DialogResult dr = this.ofdImportarTxt.ShowDialog();
+
+        //        if (dr == System.Windows.Forms.DialogResult.OK)
+        //        {
+        //            Microsoft.Office.Interop.Word.Application wordApplication = default(Microsoft.Office.Interop.Word.Application);
+        //            wordApplication = new Microsoft.Office.Interop.Word.Application();
+
+        //            // template normal
+        //            object newTemplate = false;
+        //            object docType = 0;
+        //            object isVisible = true;
+
+        //            // Cria um novo Documento  chamando a função Add na coleção de documentos
+        //            Microsoft.Office.Interop.Word.Document doc = wordApplication.Documents.Add(Type.Missing, newTemplate, docType, isVisible);
+
+        //            // torna o documento visivel
+        //            wordApplication.Visible = true;
+        //            doc.Activate();
+        //            //aDoc.Save();
+
+
+        //            StreamReader sr = new StreamReader(ofdImportarTxt.FileName);
+        //            string nomeArquivo = ofdImportarTxt.SafeFileName;
+        //            string linha = sr.ReadLine();
+
+        //            PrivateFontCollection pfc = new PrivateFontCollection();
+        //            System.Drawing.Font _Fonte;
+
+        //            string CAMINHO_FONTES = System.Windows.Forms.Application.StartupPath + "\\Fonts";
+
+        //            pfc.AddFontFile(CAMINHO_FONTES + @"\" + "BARCOD39.TTF");
+
+        //            FontFamily fontFamily = pfc.Families[0];
+        //            _Fonte = new System.Drawing.Font(fontFamily, 30);
+
+        //            string primeiraLinha;
+        //            string linhaT;
+        //            string linhaZ;
+        //            string linhaX;
+        //            int count = 1;
+
+        //            while (linha != null)
+        //            {
+        //                if (count == 1)
+        //                {
+        //                    primeiraLinha = linha;
+
+        //                    wordApplication.Selection.Font.Size = 20;
+        //                    wordApplication.Selection.Font.Bold = 0;
+        //                    wordApplication.Selection.Font.Name = "Times";
+        //                    wordApplication.Selection.Font.Underline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
+        //                    wordApplication.Selection.TypeParagraph();
+        //                    wordApplication.Selection.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphLeft;
+        //                    wordApplication.Selection.TypeText(primeiraLinha);
+        //                }
+
+        //                linha = sr.ReadLine();
+        //                count++;
+        //            }
+
+        //            sr.Close();
 
 
 
-            //        object outputFileName = wordFile.FullName.Replace(".doc", ".pdf");
-            //        object fileFormat = Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatPDF;
-
-            //        // Save document into PDF Format
-            //        doc.SaveAs(ref outputFileName,
-            //            ref fileFormat, ref oMissing, ref oMissing,
-            //            ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-            //            ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-            //            ref oMissing, ref oMissing, ref oMissing, ref oMissing);
-
-            //        // Close the Word document, but leave the Word application open.
-            //        // doc has to be cast to type _Document so that it will find the
-            //        // correct Close method.                
-            //        object saveChanges = Microsoft.Office.Interop.Word.WdSaveOptions.wdDoNotSaveChanges;
-            //        ((Microsoft.Office.Interop.Word._Document)doc).Close(ref saveChanges, ref oMissing, ref oMissing);
-            //        doc = null;
 
 
-            //    }
-
-            //    // word has to be cast to type _Application so that it will find
-            //    // the correct Quit method.
-            //    ((Microsoft.Office.Interop.Word._Application)word).Quit(ref oMissing, ref oMissing, ref oMissing);
-            //    word = null;
-            //}
-            #endregion
-
-            #region Exemplo 3
-            //http://stackoverflow.com/questions/26275581/getting-system-runtime-interopservices-comexception-command-failed
-            /*
-            string sInputFile = @"C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\Download\Testdoc.doc";
-            string sOutputFile = @"C:\Users\Suellen\Downloads\testepdf.pdf";
-
-            // Create a new Microsoft Word application object
-            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
-            // C# doesn't have optional arguments so we'll need a dummy value
-            object oMissing = System.Reflection.Missing.Value;
-
-            word.Visible = false;
-            word.ScreenUpdating = false;
 
 
-            //if (File.Exists(sInputFile))
-            //{
 
-            FileInfo wordFile = new FileInfo(sInputFile);
 
-                // Cast as Object for word Open method
-                Object filename = (Object)wordFile.FullName;
 
-                // Use the dummy value as a placeholder for optional arguments
-                Microsoft.Office.Interop.Word.Document doc = word.Documents.Open(ref filename, ref oMissing,
-                    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                    ref oMissing, ref oMissing, ref oMissing, ref oMissing);
-                doc.Activate();
+        //            object outputFileName = wordFile.FullName.Replace(".doc", ".pdf");
+        //            object fileFormat = Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatPDF;
 
-                object outputFileName = sOutputFile;
-                object fileFormat = Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatPDF;
+        //            // Save document into PDF Format
+        //            doc.SaveAs(ref outputFileName,
+        //                ref fileFormat, ref oMissing, ref oMissing,
+        //                ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+        //                ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+        //                ref oMissing, ref oMissing, ref oMissing, ref oMissing);
 
-                // Save document into PDF Format
-                doc.SaveAs(ref outputFileName,
-                    ref fileFormat, ref oMissing, ref oMissing,
-                    ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                    ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                    ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+        //            // Close the Word document, but leave the Word application open.
+        //            // doc has to be cast to type _Document so that it will find the
+        //            // correct Close method.                
+        //            object saveChanges = Microsoft.Office.Interop.Word.WdSaveOptions.wdDoNotSaveChanges;
+        //            ((Microsoft.Office.Interop.Word._Document)doc).Close(ref saveChanges, ref oMissing, ref oMissing);
+        //            doc = null;
 
-                // Close the Word document, but leave the Word application open.
-                // doc has to be cast to type _Document so that it will find the
-                // correct Close method.                
-                object saveChanges = Microsoft.Office.Interop.Word.WdSaveOptions.wdDoNotSaveChanges;
-                ((Microsoft.Office.Interop.Word._Document)doc).Close(ref saveChanges, ref oMissing, ref oMissing);
-                doc = null;
 
-            //}
+        //        }
 
-            // word has to be cast to type _Application so that it will find
-            // the correct Quit method.
-            ((Microsoft.Office.Interop.Word._Application)word).Quit(ref oMissing, ref oMissing, ref oMissing);
-            word = null;
-             */
-            #endregion
-        }
+        //        // word has to be cast to type _Application so that it will find
+        //        // the correct Quit method.
+        //        ((Microsoft.Office.Interop.Word._Application)word).Quit(ref oMissing, ref oMissing, ref oMissing);
+        //        word = null;
+        //    }*/
+        //    #endregion
+
+        //    #region Exemplo 3
+        //    /*//http://stackoverflow.com/questions/26275581/getting-system-runtime-interopservices-comexception-command-failed
+            
+        //    string sInputFile = @"C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\Download\Testdoc.doc";
+        //    string sOutputFile = @"C:\Users\Suellen\Downloads\testepdf.pdf";
+
+        //    // Create a new Microsoft Word application object
+        //    Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
+        //    // C# doesn't have optional arguments so we'll need a dummy value
+        //    object oMissing = System.Reflection.Missing.Value;
+
+        //    word.Visible = false;
+        //    word.ScreenUpdating = false;
+
+
+        //    //if (File.Exists(sInputFile))
+        //    //{
+
+        //    FileInfo wordFile = new FileInfo(sInputFile);
+
+        //        // Cast as Object for word Open method
+        //        Object filename = (Object)wordFile.FullName;
+
+        //        // Use the dummy value as a placeholder for optional arguments
+        //        Microsoft.Office.Interop.Word.Document doc = word.Documents.Open(ref filename, ref oMissing,
+        //            ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+        //            ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+        //            ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+        //        doc.Activate();
+
+        //        object outputFileName = sOutputFile;
+        //        object fileFormat = Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatPDF;
+
+        //        // Save document into PDF Format
+        //        doc.SaveAs(ref outputFileName,
+        //            ref fileFormat, ref oMissing, ref oMissing,
+        //            ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+        //            ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+        //            ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+        //        // Close the Word document, but leave the Word application open.
+        //        // doc has to be cast to type _Document so that it will find the
+        //        // correct Close method.                
+        //        object saveChanges = Microsoft.Office.Interop.Word.WdSaveOptions.wdDoNotSaveChanges;
+        //        ((Microsoft.Office.Interop.Word._Document)doc).Close(ref saveChanges, ref oMissing, ref oMissing);
+        //        doc = null;
+
+        //    //}
+
+        //    // word has to be cast to type _Application so that it will find
+        //    // the correct Quit method.
+        //    ((Microsoft.Office.Interop.Word._Application)word).Quit(ref oMissing, ref oMissing, ref oMissing);
+        //    word = null;*/
              
+        //    #endregion
+
+        //    //Microsoft.Office.Interop.Word.Application appWord = new Microsoft.Office.Interop.Word.Application();
+        //    //wordDocument = appWord.Documents.Open(@"C:\Users\Suellen\Desktop\Teste_CodigoBarras.doc");
+        //    //wordDocument.ExportAsFixedFormat(@"C:\Users\Suellen\Desktop\DocTo.pdf", WdExportFormat.wdExportFormatPDF);
+        //}
+
+        //public Microsoft.Office.Interop.Word.Document wordDocument { get; set; }
+
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //    OpenFileDialog dlg = new OpenFileDialog();
+
+        //    // Set filter for file extension and default file extension 
+        //    dlg.DefaultExt = ".doc";
+        //    dlg.Filter = "Word documents (.doc)|*.docx;*.doc";
+
+        //    // Display OpenFileDialog by calling ShowDialog method 
+        //    //Nullable<bool> result = dlg.ShowDialog();
+
+        //    //// Get the selected file name and display in a TextBox 
+        //    //if (result == true)
+        //    //{
+        //    //    // Open document 
+        //    //    string filename = dlg.FileName;
+        //    //    textBox2.Text = filename;
+        //    //}
+
+        //    DialogResult dr = dlg.ShowDialog();
+
+        //    if (dr == System.Windows.Forms.DialogResult.OK)
+        //    {
+        //        string filename = dlg.FileName;
+        //        textBox2.Text = filename;
+        //    }
+        //}
+
+        //private void button3_Click(object sender, EventArgs e)
+        //{
+        //    Microsoft.Office.Interop.Word.Application appWord = new Microsoft.Office.Interop.Word.Application();
+        //    wordDocument = appWord.Documents.Open(textBox2.Text);
+        //    SaveFileDialog sfd = new SaveFileDialog();
+        //    sfd.Filter = "Word documents (.doc)|*.docx;*.doc";
+        //    try
+        //    {
+        //        if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //        {
+        //            string ext = System.IO.Path.GetExtension(sfd.FileName);
+        //            //switch (ext)
+        //            //{
+        //                //case ".pdf":
+        //                    wordDocument.ExportAsFixedFormat(sfd.FileName, WdExportFormat.wdExportFormatPDF);
+        //                    //break;
+
+        //            //}
+        //            textBox3.Text = sfd.FileName;
+        //        }
+        //        System.Windows.Forms.MessageBox.Show("File Converted Successfully..");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        System.Windows.Forms.MessageBox.Show(ex.Message);
+        //    }
+        //    System.Diagnostics.Process.Start(sfd.FileName); 
+        //}
+
+        ////public Microsoft.Office.Interop.Word.Document wordDocument { get; set; }
+        #endregion
+
+        protected void TestePdf()
+        {
+            string vArq = "";
+            FolderBrowserDialog vSalvar = new FolderBrowserDialog();
+
+            if (vSalvar.ShowDialog() == DialogResult.Cancel)
+                return; // Cancela todo processo
+            //Insere na variavel o caminho selecionado pelo usuário e concatena com o nome do arquivo
+            vArq = vSalvar.SelectedPath + "\\" + "teste" + ".pdf";
+
+
+            //Cria um objeto PDF
+            Report vPdf = new Report(new PdfFormatter());
+            //Define a fonte que sera usada no relatório PDF
+            FontDef vDef = new FontDef(vPdf, FontDef.StandardFont.TimesRoman);
+            FontProp vDrop = new FontProp(vDef, 10);
+            //Cria uma Nova Pagina
+            Root.Reports.Page vPage = new Root.Reports.Page(vPdf);
+
+            //Escreve no Arquivo
+            vPage.AddCB_MM(5, new RepString(vDrop, "testando")); // Centraliza
+            vPage.AddCB_MM(0, new RepString(vDrop, ""));
+
+            //Salvar Arquivo no disco
+            vPdf.Save(vArq);
+            MessageBox.Show("Arquivo Gerado com sucesso !", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

@@ -1,11 +1,9 @@
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\CodigoBarras.exe.config
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\CodigoBarras.exe
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\CodigoBarras.pdb
-C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.csprojResolveAssemblyReference.cache
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.frmCodigoBarras.resources
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.Properties.Resources.resources
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.csproj.GenerateResource.Cache
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.exe
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.pdb
-C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\itextsharp.dll
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\itextsharp.xml
