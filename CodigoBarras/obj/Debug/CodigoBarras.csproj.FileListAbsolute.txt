@@ -7,3 +7,5 @@ C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.cspr
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.exe
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.pdb
 C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\itextsharp.xml
+C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\bin\Debug\WordToPDF.dll
+C:\Users\Suellen\Documents\CodigoBarras\CodigoBarras\obj\Debug\CodigoBarras.csprojResolveAssemblyReference.cache

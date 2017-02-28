@@ -16,6 +16,7 @@ using Root.Reports;
 //using iTextSharp.text.pdf;
 using Microsoft.Office.Interop.Word;
 using Microsoft.Win32;
+using WordToPDF;
 
 namespace CodigoBarras
 {
@@ -150,6 +151,8 @@ namespace CodigoBarras
                 //aDoc.Close();
 
                 //aDoc.ExportAsFixedFormat(ofdImportarTxt.FileName, WdExportFormat.wdExportFormatPDF);
+
+                
             }
         }
 
@@ -471,6 +474,25 @@ namespace CodigoBarras
             //Salvar Arquivo no disco
             vPdf.Save(vArq);
             MessageBox.Show("Arquivo Gerado com sucesso !", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Word2Pdf objWorPdf = new Word2Pdf();
+
+            string backfolder1 = @"C:\Users\Suellen\Downloads\WordToPDF\";
+            string strFileName = "Teste_CodigoBarras.doc";
+            object FromLocation = backfolder1 + "\\" + strFileName;
+            string FileExtension = Path.GetExtension(strFileName);
+            string ChangeExtension = strFileName.Replace(FileExtension, ".pdf");
+
+            if (FileExtension == ".doc" || FileExtension == ".docx")
+            {
+                object ToLocation = backfolder1 + "\\" + ChangeExtension;
+                objWorPdf.InputLocation = FromLocation;
+                objWorPdf.OutputLocation = ToLocation;
+                objWorPdf.Word2PdfCOnversion();
+            }  
         }
     }
 }
